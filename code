@@ -1,0 +1,42 @@
+require('dotenv').config();
+const nodemailer = require('nodemailer');
+const log = console.log;
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: "abc@gmail.com",
+        pass: "xxxxxxxx",
+
+    }
+});
+function sendMail(mailOptions){
+
+}
+
+
+const express = require('express')
+const app = express()
+const port = 3000
+var bodyParser = require('body-parser')
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+var jsonParser = bodyParser.json()
+  app.post('/',(req, res) => {
+      try {
+          console.log(req.body)
+        let mailOptions = {
+            from: "abc@gmail.com",
+            to: "xyz@gmail.com",
+            subject: "test ",
+            text:"hello mottoo"
+        }
+        transporter.sendMail(mailOptions, (err, data) => {
+            if (err) {
+                res.send('Error occurs');
+            }
+            res.send('Email sent!!!');
+        });
+      } catch (error) {
+        res.send(error)   
+      }
+  })
+     
